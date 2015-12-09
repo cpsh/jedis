@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.6.0"/>
-	<classpathentry kind="lib" path="lib/jedis/junit-4.8.2.jar"/>
+	<classpathentry kind="lib" path="lib/jedis/junit-4.8.2.jar" sourcepath="C:/Users/Administrator/.m2/repository/junit/junit/4.8.2/junit-4.8.2-sources.jar"/>
 	<classpathentry kind="lib" path="lib/jedis/slf4j-api-1.7.12.jar"/>
 	<classpathentry kind="lib" path="lib/jedis/spring-core-4.1.7.RELEASE.jar"/>
 	<classpathentry kind="lib" path="lib/jedis/spring-data-redis-1.6.1.RELEASE.jar"/>
@@ -10,7 +10,12 @@
 	<classpathentry kind="lib" path="lib/jedis/spring-tx-4.1.7.RELEASE.jar"/>
 	<classpathentry kind="lib" path="lib/jedis/spring-beans-4.1.7.RELEASE.jar"/>
 	<classpathentry kind="lib" path="lib/jedis/spring-context-4.1.7.RELEASE.jar"/>
-	<classpathentry kind="lib" path="lib/jedis/commons-pool-1.5.5.jar"/>
-	<classpathentry kind="lib" path="lib/jedis/jedis-2.1.0.jar"/>
+	<classpathentry kind="lib" path="lib/jedis/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/jedis/spring-expression-4.1.7.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/jedis/jedis-2.8.0.jar" sourcepath="lib/jedis/jedis-2.7.2-src.zip"/>
+	<classpathentry kind="lib" path="lib/jedis/commons-pool2-2.3.jar"/>
+	<classpathentry kind="lib" path="lib/jedis/spring-aop-4.1.7.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/jedis/spring-context-support-4.1.7.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/jedis/aopalliance-1.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

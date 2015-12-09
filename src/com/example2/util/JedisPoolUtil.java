@@ -71,20 +71,31 @@ public class JedisPoolUtil {
         if (pool == null) {
             JedisPoolConfig config = new JedisPoolConfig();
             // 最大分配的对象数
-            config.setMaxActive(Integer.valueOf(bundle
-                    .getString("redis.pool.maxActive")));
-            // 最大能够保持idel状态的对象数
+            // config.setMaxActive(Integer.valueOf(bundle.getString("redis.pool.maxActive")));//common-pool-1.x版本
+
+            config.setMaxTotal(Integer.valueOf(bundle
+                    .getString("redis.pool.maxActive")));// common-pool2-2.x版本
+
+            // 最大能够保持idel状态的对象数 最大空闲连接数
             config.setMaxIdle(Integer.valueOf(bundle
                     .getString("redis.pool.maxIdle")));
-            // 当池内没有返回对象时，最大等待时间
-            config.setMaxWait(Long.valueOf(bundle
+
+            /*
+             * 当池内没有返回对象时，最大等待时间, 获取连接时的最大等待毫秒数(如果设置为阻塞时BlockWhenExhausted),
+             * 如果超时就抛异常, 小于零:阻塞不确定的时间, 默认-1
+             */
+            // config.setMaxWait(Long.valueOf(bundle.getString("redis.pool.maxWait")));
+            config.setMaxWaitMillis(Long.valueOf(bundle
                     .getString("redis.pool.maxWait")));
-            // 当调用borrow Object方法时，是否进行有效性检查
+
+            // 当调用borrow Object方法获取连接的时候是否进行有效性检查 , 默认false
             config.setTestOnBorrow(Boolean.valueOf(bundle
                     .getString("redis.pool.testOnBorrow")));
+
             // 当调用return Object方法时，是否进行有效性检查
             config.setTestOnReturn(Boolean.valueOf(bundle
                     .getString("redis.pool.testOnReturn")));
+            
             pool = new JedisPool(config, bundle.getString("redis.ip"),
                     Integer.valueOf(bundle.getString("redis.port")));
         }

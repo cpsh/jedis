@@ -1,13 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	                   http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+	                   http://www.springframework.org/schema/context
+                       http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
+	<bean name="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>classpath:redis.properties</value>
+		</property>
+
+	</bean>
+
+
+	<!-- 该 BeanPostProcessor 将自动对标注 @Autowired 的 Bean 进行注入 Spring 通过一个 BeanPostProcessor 
+		对 @Autowired 进行解析， 所以要让 @Autowired 起作用必须事先在 Spring 容器中声明 AutowiredAnnotationBeanPostProcessor 
+		在原来注入spirng容器中的bean的方法。 在域变量上加上标签@Autowired,并且去掉 相应的get 和set方法 Bean。 -->
+	<!-- <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" 
+		/> -->
+
+	<!-- <context:annotation-config/> -->
+	<!-- 使用annotation 自动注册bean,并检查@Required,@Autowired的属性已被注入 -->
+	<context:component-scan base-package="com.springExample" />
 
 	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
-		<property name="maxActive" value="${redis.pool.maxActive}" />
+		<!-- common-pool.1x -->
+		<!-- <property name="maxActive" value="${redis.pool.maxActive}" /> -->
+		<!-- common-pool2.2x -->
+		<property name="maxTotal" value="${redis.pool.maxActive}" />
 		<property name="maxIdle" value="${redis.pool.maxIdle}" />
-		<property name="maxWait" value="${redis.pool.maxWait}" />
+		<!-- <property name="maxWait" value="${redis.pool.maxWait}" /> -->
+		<property name="maxWaitMillis" value="${redis.pool.maxWait}" />
 		<property name="testOnBorrow" value="${redis.pool.testOnBorrow}" />
 	</bean>
 
@@ -18,7 +44,13 @@
 		<property name="poolConfig" ref="jedisPoolConfig" />
 	</bean>
 
-	<bean class="org.springframework.data.redis.core.RedisTemplate"
+
+	<bean id="redisTemplate" name="redisTemplate"
+		class="org.springframework.data.redis.core.RedisTemplate"
 		p:connection-factory-ref="jedisConnectionFactory" />
+
+	<bean id="person" name="person" class="com.springExample.person"/>
+
+	<bean id="userDao" name="userDao" class="com.springExample.UserDaoImpl"></bean>
 
 </beans>

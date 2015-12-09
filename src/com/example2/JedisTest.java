@@ -13,7 +13,7 @@ import redis.clients.jedis.ShardedJedisPool;
 public class JedisTest {
     
     public static void main(String[] args) {
-     //   jedisPoolTest();
+        jedisPoolTest();
         sharedJedisPoolTest();
     }
     
@@ -38,12 +38,18 @@ public class JedisTest {
              * instance出错时，必须调用returnBrokenResource返还给pool，
              * 否则下次通过getResource得到的instance的缓冲区可能还存在数据，出现问题  
              */
-            JedisPoolUtil.getPool().returnBrokenResource(jedis); 
+            JedisPoolUtil.getPool().returnBrokenResource(jedis);
         }
         
         System.out.println("set key result : " + value);
         System.out.println();
  //       jedis.flushDB(); //Delete all the keys of the currently selected DB
+        
+        
+        for (int i = 0; i < 5; i++) {
+            jedis.set("jedisPool_"+i, "jedisPool_value_"+i);
+        }
+        
         JedisPoolUtil.closeJedis(jedis);
     }
     

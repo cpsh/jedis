@@ -3,6 +3,7 @@ package com.springExample;
 import java.io.Serializable;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
@@ -10,9 +11,12 @@ import org.springframework.data.redis.core.RedisTemplate;
 
 public class UserDaoImpl implements UserDao {
 
-    @Autowired
+   @Autowired
     private RedisTemplate<Serializable, Serializable> redisTemplate;
-
+   
+   @Autowired
+   private person person;
+   
     /**
      * 传入参数，需要final标识，禁止方法内修改。 调用RedisConnection的set方法实现Redis的SET命令。
      * 不管是Key，还是Value都需要进行Serialize。 序列化操作，最好使用RedisTemplate提供的Serializer来完成。
